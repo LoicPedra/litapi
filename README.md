@@ -4,21 +4,20 @@ LitApi is a lite PHP framework to write simple and powerful APIs.
 
 ## Installation
 
-Clone this repository and copy src folder in your project! 
+Clone this repository and copy **src** folder in your project! 
 
 ## Usage
 
-Create an index.php file with the following contents:
+Create an **index.php** file with the following contents:
 
 ```php
 <?php
 
 require 'src/Autoloader.php';
 
-
-
 $app = new LitApi\App();
 
+// Example, see more in docs
 $app->get('/hello/:name', function ($args) {
     echo "Hello, " . $args['name'];
 });
@@ -26,12 +25,16 @@ $app->get('/hello/:name', function ($args) {
 $app->run();
 ```
 
-You may quickly test this using the built-in PHP server:
-```bash
-$ php -S localhost:8000
-```
+### Apache
 
-Going to http://localhost:8000/hello/john will now display "Hello, john".
+Create an **.htaccess** file with the following contents: 
+
+```
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+```
 
 ## Contributing
 
