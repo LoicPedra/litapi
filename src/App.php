@@ -72,10 +72,7 @@ class App
 	{
 		if(!isset($this->routes[$_SERVER['REQUEST_METHOD']]))
 		{
-			/*if($this->notFoundClosure != null)
-				call_user_func_array($this->notFoundClosure, array(new Exception\BadRequestException(null)));
-			else*/
-				throw new Exception\BadRequestException(null);
+			throw new Exception\BadRequestException(null);
 		}
 
 		foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
@@ -84,11 +81,10 @@ class App
 				return $route->call();
 			}
 		}
-/*
-		if($this->badRequestClosure != null)
-				call_user_func_array($this->badRequestClosure, array(new Exception\NotImplementedException(null)));
-		else*/
-			throw new Exception\NotImplementedException(null);
+
+		//throw new Exception\NotImplementedException(null);
+
+		throw new Exception\BadRequestException(null);
 	}
 
 	public function notFound($nf)
@@ -99,6 +95,11 @@ class App
 	public function badRequest($br)
 	{
 		$this->badRequestClosure = $br;
+	}
+
+	public function exception($e)
+	{
+		$this->exceptionClosure = $e;
 	}
 }
 
