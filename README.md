@@ -36,14 +36,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 ```
 
-## Contributing
+## Documentation
 
 Please see [documentation](docs/README.md) for details.
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [contibuting](CONTRIBUTING.md) for details.
 
 ## License
 
-Thus project is licensed under the MIT license. See [License File](LICENSE) for more information.
+This project is licensed under the MIT license. See [License File](LICENSE) for more information.
