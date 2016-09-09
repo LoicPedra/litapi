@@ -27,16 +27,24 @@ class App
 
 	public function get($path, $callable)
 	{
-		$route = new Route($path, $callable);
-		$this->routes['GET'][] = $route;
+		//$route = new Route($path, $callable);
+		//$this->routes['GET'][] = $route;
 
-		return $route;
+		return $this->request("GET", $path, $callable);
 	}
 
 	public function post($path, $callable)
 	{
+		//$route = new Route($path, $callable);
+		//$this->routes['POST'][] = $route;
+
+		return $this->request("POST", $path, $callable);
+	}
+
+	public function request($method, $path, $callable)
+	{
 		$route = new Route($path, $callable);
-		$this->routes['post'][] = $route;
+		$this->routes[$method][] = $route;
 
 		return $route;
 	}
