@@ -38,8 +38,12 @@ RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
 ## Contributing
 
+Please see [documentation](docs/README.md) for details.
+
+## Contributing
+
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
-Thus project is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+Thus project is licensed under the MIT license. See [License File](LICENSE) for more information.

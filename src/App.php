@@ -27,17 +27,11 @@ class App
 
 	public function get($path, $callable)
 	{
-		//$route = new Route($path, $callable);
-		//$this->routes['GET'][] = $route;
-
 		return $this->request("GET", $path, $callable);
 	}
 
 	public function post($path, $callable)
 	{
-		//$route = new Route($path, $callable);
-		//$this->routes['POST'][] = $route;
-
 		return $this->request("POST", $path, $callable);
 	}
 
@@ -55,13 +49,6 @@ class App
 		{
 			$this->search();
 		}
-		catch(Exception\NotImplementedException $nie)
-		{
-			if($this->badRequestClosure != null)
-				call_user_func_array($this->badRequestClosure, array(new Exception\NotImplementedException(null)));
-			else
-				call_user_func_array($this->exceptionClosure, array($nie));
-		}
 		catch(Exception\BadRequestException $bre)
 		{
 			if($this->notFoundClosure != null)
@@ -73,6 +60,17 @@ class App
 		{
 			call_user_func_array($this->exceptionClosure, array($e));
 		}
+
+		/*
+		// For future implementations
+		catch(Exception\NotImplementedException $nie)
+		{
+			if($this->badRequestClosure != null)
+				call_user_func_array($this->badRequestClosure, array(new Exception\NotImplementedException(null)));
+			else
+				call_user_func_array($this->exceptionClosure, array($nie));
+		}
+		*/
 		
 	}
 
