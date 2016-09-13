@@ -62,7 +62,7 @@ class App
      */
 	public function request($method, $path, $callable)
 	{
-		$route = new Route($path, $callable);
+		$route = new Route($method, $path, $callable);
 		$this->routes[$method][] = $route;
 
 		return $route;

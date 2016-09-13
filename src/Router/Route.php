@@ -5,6 +5,8 @@ namespace Router;
 class Route
 {
 
+    private $method;
+
 	private $path;
 
 	private $callable;
@@ -13,10 +15,11 @@ class Route
 
 	private $params = array();
 
-	public function __construct($path, $callable)
+	public function __construct($method, $path, $callable)
 	{
 		$this->path = trim($path, "/");
 		$this->callable = $callable;
+		$this->method = $method;
 	}
 
 	public function with($param, $regex)
@@ -57,19 +60,22 @@ class Route
 
 	public function call()
 	{
+	    //var_dump();
+
 		if(is_string($this->callable))
 		{
 			$p = explode('#', $this->callable);
-			require_once("src/Controller/".$p[0].".php");
+			require("src/Controller/".$p[0].".php");
 			$controller = $p[0];
 			$controller = new $controller();
-			return call_user_func_array([$controller, $p[1]], $this->matches);
+			return call_user_func_array([$controller, $p[1]], array(new RouterRequest($this->matches, $this->method)));
+			//return call_user_func_array([$controller, $p[1]], $this->matches);
 
 		}
 		else
 		{
-			//return call_user_func_array($this->callable, array(array('args1' => '1', 'args2' => '2')));
-			return call_user_func_array($this->callable, array($this->matches));
+			return call_user_func_array($this->callable, array(new RouterRequest($this->matches, $this->method)));
+//			return call_user_func_array($this->callable, array($this->matches));
 		}
 			
 	}
