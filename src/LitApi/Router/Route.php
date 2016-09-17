@@ -15,6 +15,10 @@ class Route
 
 	private $params = array();
 
+    private $layout_above  = array();
+
+    private $layout_below  = array();
+
 	public function __construct($method, $path, $callable)
 	{
 		$this->path = trim($path, "/");
@@ -65,17 +69,50 @@ class Route
 			$p = explode('#', $this->callable);
 			$controller = "\\Controller\\" . $p[0];
 			$controller = new $controller();
-			return call_user_func_array([$controller, $p[1]], array(new RouterRequest($this->matches, $this->method)));
+            $this->displayLayoutAbove();
+			call_user_func_array([$controller, $p[1]], array(new RouterRequest($this->matches, $this->method)));
+            $this->displayLayoutBelow();
 //			return call_user_func_array([$controller, $p[1]], $this->matches);
 
 		}
 		else
 		{
-			return call_user_func_array($this->callable, array(new RouterRequest($this->matches, $this->method)));
+            $this->displayLayoutAbove();
+			call_user_func_array($this->callable, array(new RouterRequest($this->matches, $this->method)));
+            $this->displayLayoutBelow();
 //			return call_user_func_array($this->callable, array($this->matches));
 		}
-			
+
+		return;
 	}
+
+    public function setLayoutAbove($layout_above)
+    {
+        $this->layout_above = $layout_above;
+
+        return $this;
+    }
+
+    public function setLayoutBelow($layout_below)
+    {
+        $this->layout_below = $layout_below;
+
+        return $this;
+    }
+
+    private function displayLayoutAbove()
+    {
+        for($i = 0; $i < count($this->layout_above); $i++) {
+            include $this->layout_above[$i];
+        }
+    }
+
+    private function displayLayoutBelow()
+    {
+        for($i = 0; $i < count($this->layout_below); $i++) {
+            include $this->layout_below[$i];
+        }
+    }
 }
 
 ?>
