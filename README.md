@@ -13,7 +13,7 @@ Create an **index.php** file with the following contents:
 ```php
 <?php
 
-require 'src/Autoloader.php';
+require 'src/LitApi/Autoloader.php';
 
 $app = new LitApi\App();
 
