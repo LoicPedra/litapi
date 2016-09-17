@@ -149,6 +149,21 @@ class App
 	{
 		$this->exceptionClosure = $c;
 	}
+
+	public function render($html)
+    {
+        echo $html;
+    }
+
+    public function renderSafe($html)
+    {
+        echo htmlentities($html);
+    }
+
+    public function includeFile($path)
+    {
+        include $path;
+    }
 }
 
 ?>
