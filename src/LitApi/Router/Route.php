@@ -60,16 +60,13 @@ class Route
 
 	public function call()
 	{
-	    //var_dump();
-
 		if(is_string($this->callable))
 		{
 			$p = explode('#', $this->callable);
-			require("src/Controller/".$p[0].".php");
-			$controller = $p[0];
+			$controller = "\\Controller\\" . $p[0];
 			$controller = new $controller();
 			return call_user_func_array([$controller, $p[1]], array(new RouterRequest($this->matches, $this->method)));
-			//return call_user_func_array([$controller, $p[1]], $this->matches);
+//			return call_user_func_array([$controller, $p[1]], $this->matches);
 
 		}
 		else
