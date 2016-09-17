@@ -17,10 +17,13 @@ require 'src/LitApi/Autoloader.php';
 
 $app = new LitApi\App();
 
-// Example, see more in docs
-$app->get('/hello/:name', function ($args) {
-    echo "Hello, " . $args['name'];
-});
+$app->get('/give/:number/:name', function(\Router\RouterRequest $request)
+{
+    $args = $request->getArgs();
+
+    echo "Give $args[0] cookies to $args[1]";
+
+})->with("number", "[0-9]{1,}")->with("name", "[a-zA-Z]{2,}");
 
 $app->run();
 ```
@@ -34,6 +37,19 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+```
+
+### Nginx 
+
+Set Nginx's configuration: 
+
+```
+# nginx configuration 
+location / { 
+if (!-e $request_filename){ 
+rewrite ^(.*)$ /index.php?url=$1 break; 
+} 
+}
 ```
 
 ## Documentation
