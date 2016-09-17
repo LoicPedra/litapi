@@ -24,7 +24,7 @@ class Autoloader {
 	{
 		$class = str_replace(__NAMESPACE__ . "\\", '', $class);
 		$class = str_replace("\\", '/', $class);
-		require_once 'src/' . $class . '.php';
+		require_once 'src/LitApi/' . $class . '.php';
 	}
 
 }
